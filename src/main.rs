@@ -239,6 +239,7 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
             Ok(mut file) => {
                 match file.write_all(&data) {
                     Ok(_) => {
+                        let mut success = false;
                         let mut title = "The file type is not an image".to_string();
                         let mut message = "The file type is not an image".to_string();
                         let mut ocr_result= "".to_string();
@@ -249,13 +250,14 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
                                     ocr_result = text;
                                     message = "File uploaded successfully".to_string();
                                     title = "OCR Result:".to_string();
+                                    success = true;
                                 }
                             } 
                         } 
                     
                         if is_api_request {
                             Json(UploadResponse {
-                                success: true,
+                                success: success,
                                 message: message.to_string(),
                                 ocr_result: ocr_result,
                             }).into_response()
