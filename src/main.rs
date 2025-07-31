@@ -185,6 +185,7 @@ async fn show_form() -> Html<String> {
         <html>
         <head>
             <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>macocr</title>
         </head>
         <body>
@@ -266,7 +267,11 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
                                 r#"
                                 <!doctype html>
                                 <html>
-                                <head><meta charset="utf-8"><title>OCR Result</title></head>
+                                <head>
+                                    <meta charset="utf-8">
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <title>OCR Result</title>
+                                </head>
                                 <body>
                                     <h1>{}</h1>
                                     <p>{}</p>
@@ -287,6 +292,11 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
                         } else {
                             Html(r#"
                                 <!doctype html>
+                                <head>
+                                    <meta charset="utf-8">
+                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                    <title>Error</title>
+                                </head>
                                 <html><body>
                                     <h1>❌ Failed to write file.</h1>
                                 </body></html>
@@ -305,6 +315,11 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
                 } else {
                     Html(r#"
                         <!doctype html>
+                        <head>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Error</title>
+                        </head>
                         <html><body>
                             <h1>❌ Unable to create file.</h1>
                         </body></html>
@@ -322,6 +337,11 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
         } else {
             Html(r#"
                 <!doctype html>
+                <head>
+                    <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Error</title>
+                </head>
                 <html><body>
                     <h1>❌ No file received</h1>
                 </body></html>
