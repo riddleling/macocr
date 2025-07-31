@@ -50,6 +50,33 @@ curl -u admin:password123 \
   -F "file=@01.png"
 ```
 
+## Installation
+
+### Install by cargo
+
+```
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install macocr
+cargo install macocr
+macocr -h
+```
+
+## Features
+
+- Directly invoke Apple's Vision Framework API for OCR
+- Command-line mode: allows batch processing of image files and exports OCR results as TXT files.
+- HTTP server mode: provides a web interface to upload images and return OCR results
+- Supports both HTML form upload and JSON API interfaces
+- Configurable HTTP Basic Auth authentication
+
+## Use cases
+
+- macOS users need to perform batch OCR processing
+- Applications that need to integrate OCR functionality via API
+
+
 ## License
 
 MIT License
