@@ -66,7 +66,7 @@ macocr -h
 ## Features
 
 - Directly invoke Apple's Vision Framework API for OCR
-- Command-line mode: allows batch processing of image files and exports OCR results as TXT files.
+- Command-line mode: allows batch processing of image files and exports OCR results as TXT files
 - HTTP server mode: provides a web interface to upload images and return OCR results
 - Supports both HTML form upload and JSON API interfaces
 - Configurable HTTP Basic Auth authentication
