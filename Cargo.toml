@@ -1,6 +1,6 @@
 [package]
 name = "macocr"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["riddleling <riddle.apple@gmail.com>"]
 edition = "2024"
 description = "An OCR Tool using Vision Framework API."
