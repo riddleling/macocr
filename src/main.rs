@@ -241,7 +241,7 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
                 match file.write_all(&data) {
                     Ok(_) => {
                         let mut success = false;
-                        let mut title = "The file type is not an image".to_string();
+                        let mut title = "❌ The file type is not an image".to_string();
                         let mut message = "The file type is not an image".to_string();
                         let mut ocr_result= "".to_string();
 
