@@ -6,7 +6,7 @@ edition = "2024"
 description = "An OCR Tool using Apple's Vision Framework API."
 license = "MIT"
 readme = "README.md"
-keywords = ["apple", "macos", "mac", "ocr", "vision", "http", "server"]
+keywords = ["apple", "macos", "ocr", "http", "server"]
 repository = "https://github.com/riddleling/macocr"
 
 [dependencies]
