@@ -1,6 +1,6 @@
-# maccocr
+# macocr
 
-An OCR Tool using Vision Framework API.
+An OCR Tool using Apple's Vision Framework API.
 
 ## Command Line Arguments
 
