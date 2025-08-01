@@ -1,5 +1,7 @@
 use clap::{Parser};
 use infer;
+use tower_http::limit::RequestBodyLimitLayer;
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use std::{fs, io::{self, Write}, path::Path};
 use objc2::rc::Retained;
 use objc2::AnyThread;
@@ -12,7 +14,7 @@ use objc2_foundation::{
     NSArray, NSData, NSDictionary
 };
 use axum::{
-    extract::{Multipart, Request}, 
+    extract::{DefaultBodyLimit, Multipart, Request}, 
     http::{HeaderMap, StatusCode}, 
     middleware::{self, Next}, 
     response::{Html, IntoResponse, Response}, 
@@ -86,7 +88,15 @@ async fn main() {
     }
 
     if args.server {
-        tracing_subscriber::fmt::init();
+        tracing_subscriber::registry()
+            .with(
+                tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+                    format!("{}=debug,tower_http=debug", env!("CARGO_CRATE_NAME")).into()
+                }),
+            )
+            .with(tracing_subscriber::fmt::layer())
+            .init();
+
         let mut stdout = StandardStream::stdout(ColorChoice::Always);
 
         let upload_dir = std::env::temp_dir().join(UPLOAD_DIR_NAME);
@@ -94,7 +104,12 @@ async fn main() {
 
         let app = Router::new()
         .route("/", get(show_form))
-        .route("/upload", post(upload_file));
+        .route("/upload", post(upload_file))
+        .layer(DefaultBodyLimit::disable())
+        .layer(RequestBodyLimitLayer::new(
+            100 * 1024 * 1024, /* 100mb */
+        ))
+        .layer(tower_http::trace::TraceLayer::new_for_http());
 
         let app = if !args.auth.is_empty() && is_valid_auth_format(&args.auth) {
             print!("      Auth: ");
@@ -114,7 +129,6 @@ async fn main() {
         };
 
         let addr = format!("0.0.0.0:{}", args.port.to_string());
-        let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
 
         print!("   Address: ");
         stdout.set_color(ColorSpec::new().set_fg(Some(Color::Blue)).set_bold(true)).unwrap();
@@ -125,7 +139,9 @@ async fn main() {
         stdout.set_color(ColorSpec::new().set_fg(Some(Color::Blue)).set_bold(true)).unwrap();
         writeln!(&mut stdout, "{}", upload_dir.to_str().unwrap()).unwrap();
         stdout.reset().unwrap();
-
+        println!("");
+                
+        let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
         axum::serve(listener, app).await.unwrap();
     }
 }
