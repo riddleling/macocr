@@ -3,9 +3,10 @@ name = "macocr"
 version = "0.3.0"
 authors = ["riddleling <riddle.apple@gmail.com>"]
 edition = "2024"
-description = "An OCR Tool using Vision Framework API."
+description = "An OCR Tool using Apple's Vision Framework API."
 license = "MIT"
 readme = "README.md"
+keywords = ["apple", "macos", "mac", "ocr", "vision", "http", "server"]
 repository = "https://github.com/riddleling/macocr"
 
 [dependencies]
