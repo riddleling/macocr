@@ -294,7 +294,7 @@ async fn upload_file(headers: HeaderMap, mut multipart: Multipart) -> impl IntoR
                                 </body>
                                 </html>
                                 "#,
-                                title, ocr_result.replace("\r\n", "<br>").replace("\n", "<br>") 
+                                title, ocr_result.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>")
                             )).into_response()
                         }
                     }
