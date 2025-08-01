@@ -70,6 +70,7 @@ macocr -h
 - HTTP server mode: provides a web interface to upload images and return OCR results
 - Supports both HTML form upload and JSON API interfaces
 - Configurable HTTP Basic Auth authentication
+- The maximum upload image size is 100 MB
 
 ## Use cases
 
