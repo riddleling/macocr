@@ -193,7 +193,7 @@ fn export_text_file(contents: &str, path: &str) -> io::Result<()> {
     Ok(())
 }
 
-// 顯示單檔案上傳表單
+// Show file upload form
 async fn show_form() -> Html<String> {
     let html = format!(
         r#"
@@ -403,7 +403,7 @@ async fn basic_auth_middleware_with_params(
     *response.status_mut() = StatusCode::UNAUTHORIZED;
     response.headers_mut().insert(
         "WWW-Authenticate",
-        "Basic realm=\"File Upload Server\"".parse().unwrap(),
+        "Basic realm=\"MacOCR Server\"".parse().unwrap(),
     );
     
     Ok(response)
