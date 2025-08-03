@@ -1,6 +1,6 @@
 use clap::{Parser};
 use infer;
-use tower_http::{limit::RequestBodyLimitLayer, trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer}};
+use tower_http::{limit::RequestBodyLimitLayer, trace::{DefaultOnFailure, DefaultOnRequest, DefaultOnResponse, TraceLayer}};
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use std::{fs, io::{self, Write}, path::Path};
@@ -120,7 +120,11 @@ async fn main() {
                     DefaultOnResponse::new()
                         .level(Level::INFO)
                         .latency_unit(tower_http::LatencyUnit::Millis),
-                ),
+                )
+                .on_failure(
+                    DefaultOnFailure::new()
+                        .level(Level::ERROR)
+                )
         );
 
         let app = if !args.auth.is_empty() && is_valid_auth_format(&args.auth) {
