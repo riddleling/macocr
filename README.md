@@ -68,7 +68,7 @@ macocr -h
 - Directly invoke Apple's Vision Framework API for OCR
 - Command-line mode: allows batch processing of image files and exports OCR results as TXT files
 - HTTP server mode: provides a web interface to upload images and return OCR results
-- Supports both HTML form upload and JSON API interfaces
+- Supports both HTML form upload and API interfaces
 - Configurable HTTP Basic Auth authentication
 - The maximum upload image size is 100 MB
 
