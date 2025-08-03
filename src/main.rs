@@ -1,6 +1,7 @@
 use clap::{Parser};
 use infer;
-use tower_http::limit::RequestBodyLimitLayer;
+use tower_http::{limit::RequestBodyLimitLayer, trace::{DefaultOnRequest, DefaultOnResponse, TraceLayer}};
+use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use std::{fs, io::{self, Write}, path::Path};
 use objc2::rc::Retained;
@@ -109,7 +110,18 @@ async fn main() {
         .layer(RequestBodyLimitLayer::new(
             100 * 1024 * 1024, /* 100mb */
         ))
-        .layer(tower_http::trace::TraceLayer::new_for_http());
+        .layer(
+            TraceLayer::new_for_http()
+                .on_request(
+                    DefaultOnRequest::new()
+                        .level(Level::INFO)
+                )
+                .on_response(
+                    DefaultOnResponse::new()
+                        .level(Level::INFO)
+                        .latency_unit(tower_http::LatencyUnit::Millis),
+                ),
+        );
 
         let app = if !args.auth.is_empty() && is_valid_auth_format(&args.auth) {
             print!("      Auth: ");
