@@ -25,3 +25,5 @@ serde = { version = "1.0.219", features = ["derive"] }
 base64 = "0.22.1"
 regex = "1.11.1"
 termcolor = "1.4.1"
+image = "0.25.8"
+core-graphics = "0.25.0"

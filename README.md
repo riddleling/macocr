@@ -41,7 +41,7 @@ macocr -s -p 80
 macocr -s -a admin:password123 -p 80
 ```
 
-After starting the HTTP server, you can upload an image from the homepage HTML or use `curl` to send an image via the **API**
+After starting the HTTP server, you can upload an image from the homepage HTML or use `curl` to send an image via the `upload` API:
 
 ```
 curl -u admin:password123 \
@@ -49,6 +49,40 @@ curl -u admin:password123 \
   -X POST http://localhost:80/upload \
   -F "file=@01.png"
 ```
+
+The JSON response looks like this:
+
+```
+{
+  "success": true,
+  "message": "File uploaded successfully",
+  "ocr_result": "Hello\nWorld\n",
+  "image_width": 1247,
+  "image_height": 648,
+  "ocr_boxes": [
+    {
+      "text": "Hello",
+      "x": 434.7201472051599,
+      "y": 269.3123034733379,
+      "w": 216.30970547749456,
+      "h": 69.04344177246088
+    },
+    {
+      "text": "World",
+      "x": 429.5100030105896,
+      "y": 420.4043957924413,
+      "w": 242.85499225518635,
+      "h": 73.382080078125
+    }
+  ]
+}
+
+```
+
+`image_width` and `image_height` represent the width and height of the image (in px),
+`x` and `y` represent the top-left origin of the text bounding box (in px),
+`w` and `h` represent the width and height of the text bounding box (in px).
+
 
 ## Installation
 
