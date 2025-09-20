@@ -52,7 +52,7 @@ curl -u admin:password123 \
 
 The JSON response looks like this:
 
-```
+```json
 {
   "success": true,
   "message": "File uploaded successfully",
