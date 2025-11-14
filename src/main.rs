@@ -46,11 +46,11 @@ struct Args {
     files: Vec<String>,
 
     /// OCR and export text files
-    #[arg(short('o'), long)]
+    #[arg(short('o'), long, conflicts_with = "server")]
     ocr: bool,
 
     /// Run HTTP Server
-    #[arg(short('s'), long)]
+    #[arg(short('s'), long, conflicts_with = "ocr")]
     server: bool, 
 
     /// HTTP Basic Auth (username:password)
@@ -111,7 +111,15 @@ impl OCRResult {
 async fn main() {
     let args = Args::parse();
 
-    if args.ocr { 
+    if !args.ocr && !args.server {
+        for file in args.files {
+            if is_image(&file) {
+                if let Ok(ocr_result) = get_ocr_result(&file) {
+                    print!("{}", ocr_result.text);
+                }
+            }
+        }
+    } else if args.ocr {
         for file in args.files {
             if is_image(&file) {
                 if let Ok(ocr_result) = get_ocr_result(&file) {
