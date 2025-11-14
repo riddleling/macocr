@@ -23,6 +23,12 @@ Options:
 
 ## How to use
 
+### Read images and perform OCR, then output the result to stdout
+
+```
+macocr *.png
+```
+
 ### Read images and perform OCR, then output the result to text files
 
 ```
