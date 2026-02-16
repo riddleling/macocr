@@ -80,16 +80,37 @@ struct OCRBoxItem {
     y: f64,
     w: f64,
     h: f64,
+    rect: OCRRectItem
 }
 
 impl OCRBoxItem {
-    fn new(text: String, x: f64, y: f64, w: f64, h: f64) -> Self {
-        OCRBoxItem { text, x, y, w, h }
+    fn new(text: String, x: f64, y: f64, w: f64, h: f64, rect: OCRRectItem) -> Self {
+        OCRBoxItem { text, x, y, w, h, rect }
     }
 }
 
 #[derive(Serialize)]
-struct OCRResult{
+struct OCRRectItem {
+    top_left_x: f64,
+    top_left_y: f64,
+    top_right_x: f64,
+    top_right_y: f64,
+    bottom_right_x: f64,
+    bottom_right_y: f64,
+    bottom_left_x: f64,
+    bottom_left_y: f64,
+}
+
+impl OCRRectItem {
+    fn new(top_left_x: f64, top_left_y: f64, top_right_x: f64, top_right_y: f64, 
+           bottom_right_x: f64, bottom_right_y: f64, bottom_left_x: f64, bottom_left_y: f64) -> Self {
+        OCRRectItem { top_left_x, top_left_y, top_right_x, top_right_y, 
+                      bottom_right_x, bottom_right_y, bottom_left_x, bottom_left_y }
+    }
+}
+
+#[derive(Serialize)]
+struct OCRResult {
     text: String,
     image_width: u32,
     image_height: u32,
@@ -269,7 +290,12 @@ fn get_ocr_result(path: &str) -> io::Result<OCRResult> {
                 let rect_w = max_x - min_x;
                 let rect_h = max_y - min_y;
 
-                items.push(OCRBoxItem::new(text, rect_x, rect_y, rect_w, rect_h));
+                let rect = OCRRectItem::new(corners[0].x, corners[0].y, 
+                                                         corners[1].x, corners[1].y, 
+                                                         corners[2].x, corners[2].y, 
+                                                         corners[3].x, corners[3].y);
+
+                items.push(OCRBoxItem::new(text, rect_x, rect_y, rect_w, rect_h, rect));
             }
         }
     }

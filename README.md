@@ -60,29 +60,48 @@ The JSON response looks like this:
 
 ```json
 {
-  "success": true,
-  "message": "File uploaded successfully",
-  "ocr_result": "Hello\nWorld\n",
-  "image_width": 1247,
-  "image_height": 648,
-  "ocr_boxes": [
-    {
-      "text": "Hello",
-      "x": 434.7201472051599,
-      "y": 269.3123034733379,
-      "w": 216.30970547749456,
-      "h": 69.04344177246088
-    },
-    {
-      "text": "World",
-      "x": 429.5100030105896,
-      "y": 420.4043957924413,
-      "w": 242.85499225518635,
-      "h": 73.382080078125
-    }
-  ]
+    "success": true,
+    "message": "File uploaded successfully",
+    "ocr_result": "Hello\nWorld\n",
+    "image_width": 1247,
+    "image_height": 648,
+    "ocr_boxes": [
+        {
+            "text": "Hello",
+            "x": 429.5830268255751,
+            "y": 267.7961617530676,
+            "w": 201.98298336909374,
+            "h": 72.4076766967774,
+            "rect": {
+                "top_left_x": 429.5830268255751,
+                "top_left_y": 268.2039872230384,
+                "top_right_x": 631.4207561940295,
+                "top_right_y": 267.7961617530676,
+                "bottom_right_x": 631.5660101946688,
+                "bottom_right_y": 339.7960129798743,
+                "bottom_left_x": 429.7282808262144,
+                "bottom_left_y": 340.203838449845
+            }
+        },
+        {
+            "text": "World",
+            "x": 421.6618595339102,
+            "y": 417.99999973333337,
+            "w": 251.79807692307696,
+            "h": 80.0,
+            "rect": {
+                "top_left_x": 421.6618595339102,
+                "top_left_y": 417.99999973333337,
+                "top_right_x": 673.4599364569872,
+                "top_right_y": 417.99999973333337,
+                "bottom_right_x": 673.4599364569872,
+                "bottom_right_y": 497.99999973333337,
+                "bottom_left_x": 421.6618595339102,
+                "bottom_left_y": 497.99999973333337
+            }
+        }
+    ]
 }
-
 ```
 
 `image_width` and `image_height` represent the width and height of the image (in px),
