@@ -106,7 +106,8 @@ The JSON response looks like this:
 
 `image_width` and `image_height` represent the width and height of the image (in px),
 `x` and `y` represent the top-left origin of the text bounding box (in px),
-`w` and `h` represent the width and height of the text bounding box (in px).
+`w` and `h` represent the width and height of the text bounding box (in px),
+`rect` provides the four corner coordinates of the detected text region, preserving its original orientation (non-axis-aligned).
 
 
 ## Installation
